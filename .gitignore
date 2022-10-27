@@ -1,3 +1,4 @@
+<<<<<<< 24e7fa192023bb018cd4494ed3491082101f689c
 # Logs
 logs
 *.log
@@ -86,3 +87,8 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+=======
+node_modeules/
+.env
+public/video/
+>>>>>>> Add video to gitignore
