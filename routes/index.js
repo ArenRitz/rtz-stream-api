@@ -1,13 +1,14 @@
 var express = require('express');
 var router = express.Router();
 const multer = require('multer');
+const { v4: uuidv4 } = require('uuid');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
       cb(null, 'public/video')
   },
   filename: function (req, file, cb) {
-      cb(null, Date.now() + '-' + file.originalname)
+      cb(null,  uuidv4() + '.mp4'  )
   },
 })
 const upload = multer({ storage: storage })
