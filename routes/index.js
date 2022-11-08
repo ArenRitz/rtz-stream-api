@@ -3,6 +3,9 @@ var router = express.Router();
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
+const { newVideo, updateTitle } = require('../db/queries/upload');
+
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -25,9 +28,16 @@ router.get('/', function (req, res, next) {
 router.post('/upload', upload.single('rtzvid'), (req, res) => {
   console.log(`Video uploaded: ${req.file.filename.substring(0, req.file.filename.lastIndexOf('.')) || req.file.filename}`)
   // make post request to db
+  newVideo(req.file.filename.substring(0, req.file.filename.lastIndexOf('.')) || req.file.filename).then(data => {
+    console.log(data);
+    res.send(data);
+  }).catch(e => {
+    console.log(e);
+  }
+  )
+})
+
   
-  
-});
 
 router.get('/:id', (req, res) => {
   const path = process.env.DIR + '/' + req.params.id + '.mp4';

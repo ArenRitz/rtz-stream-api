@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS videos CASCADE;
 -- CREATE VIDEOS
 CREATE TABLE videos (
   id SERIAL PRIMARY KEY,
-  uid VARCHAR(255) NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  description TEXT,
+  uid VARCHAR(255),
+  title VARCHAR(255),
+  description TEXT
 );
