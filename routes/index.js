@@ -24,6 +24,8 @@ router.get('/', function (req, res, next) {
 
 router.post('/upload', upload.single('rtzvid'), (req, res) => {
   console.log(`Video uploaded: ${req.file.filename.substring(0, req.file.filename.lastIndexOf('.')) || req.file.filename}`)
+  // make post request to db
+  
   
 });
 
