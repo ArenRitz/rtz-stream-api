@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-      cb(null, 'public/video')
+      cb(null, process.env.DIR);
   },
   filename: function (req, file, cb) {
       cb(null,  uuidv4() + '.mp4'  )

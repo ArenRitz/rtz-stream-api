@@ -8,7 +8,7 @@ var fs = require('fs');
 
 /* GET users listing. */
 router.get('/:id', (req, res) => {
-  const path = process.env.DIR + req.params.id;
+  const path = process.env.DIR + '/' + req.params.id + '.mp4';
   const stat = fs.statSync(path)
   const fileSize = stat.size
   const head = {
