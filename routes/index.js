@@ -3,7 +3,7 @@ var router = express.Router();
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
-const { newVideo, updateTitle } = require('../db/queries/upload');
+const { newVideo, updateTitle, getAllUids } = require('../db/queries/upload');
 
 
 
@@ -20,8 +20,11 @@ const upload = multer({ storage: storage })
 
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/videos', function (req, res) {
+  getAllUids().then(data => {
+    res.json(data);
+  })
+
 });
 
 

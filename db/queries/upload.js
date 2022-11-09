@@ -2,7 +2,7 @@ const db = require('../../configs/db.config');
 
 
 const newVideo = (uid) => {
-// insert uid into videos table and return the uid
+    // insert uid into videos table and return the uid
     return db.query("INSERT INTO videos (uid) VALUES ($1) RETURNING uid;", [uid]).then(data => {
         return data.rows[0];
     }
@@ -17,6 +17,13 @@ const updateTitle = (uid, title) => {
     )
 }
 
+const getAllUids = () => {
+    return db.query("SELECT uid FROM videos;").then(data => {
+        return data.rows;
+    })
+}
 
 
-module.exports = {newVideo, updateTitle}
+
+
+module.exports = { newVideo, updateTitle, getAllUids }
