@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
     cb(null, uuidv4() + '.mp4')
   },
 })
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage }).single('rtzvid');
 
 
 
@@ -28,7 +28,8 @@ router.get('/videos', function (req, res) {
 });
 
 
-router.post('/upload', upload.single('rtzvid'), (req, res) => {
+router.post('/upload', upload, (req, res) => {
+  req.setTimeout(500000);
   console.log(`Video uploaded: ${req.file.filename.substring(0, req.file.filename.lastIndexOf('.')) || req.file.filename}`)
   // make post request to db
   newVideo(req.file.filename.substring(0, req.file.filename.lastIndexOf('.')) || req.file.filename).then(data => {
