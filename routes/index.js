@@ -28,19 +28,29 @@ router.get('/videos', function (req, res) {
 });
 
 
-router.post('/upload', upload, (req, res) => {
-  console.log(`Video uploaded: ${req.file.filename.substring(0, req.file.filename.lastIndexOf('.')) || req.file.filename}`)
-  // make post request to db
-  newVideo(req.file.filename.substring(0, req.file.filename.lastIndexOf('.')) || req.file.filename).then(data => {
-    console.log(data);
-    res.send(data);
-  }).catch(e => {
-    console.log(e);
-  }
-  )
-})
+router.post('/upload', (req, res) => {
+  req.setTimeout(2000000);
 
-  
+  upload(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      console.log(err);
+      return res.status(500).json(err)
+    } else if (err) {
+      console.log(err);
+      return res.status(500).json(err)
+    }
+    console.log(`Video uploaded: ${req.file.filename.substring(0, req.file.filename.lastIndexOf('.')) || req.file.filename}`)
+    newVideo(req.file.filename).then(data => {
+      res.json(data);
+    })
+  })
+});
+
+
+
+  // make post request to db
+
+
 
 router.get('/:id', (req, res) => {
   const path = process.env.DIR + '/' + req.params.id + '.mp4';
